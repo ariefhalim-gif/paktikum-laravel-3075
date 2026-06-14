@@ -2,127 +2,211 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Database\Seeders\PartnerSeeder;
+
 
 class DatabaseSeeder extends Seeder
 {
+
     use WithoutModelEvents;
+
 
     /**
      * Seed the application's database.
      */
     public function run(): void
-{
+    {
 
 
-\App\Models\User::create([
-
-'name'=>'Admin Amikom',
-
-'email'=>'admin@amikom.ac.id',
-
-'password'=>bcrypt('password'),
-
-'role'=>'admin'
-
-]);
+        // =========================
+        // ADMIN USER
+        // =========================
 
 
+        \App\Models\User::firstOrCreate(
 
-$cat1 = \App\Models\Category::create([
+            [
+                'email' => 'admin@amikom.ac.id'
+            ],
 
-'name'=>'Seminar',
+            [
+                'name' => 'Admin Amikom',
 
-'slug'=>'seminar'
+                'password' => bcrypt('password'),
 
-]);
+                'role' => 'admin'
+            ]
 
-
-$cat2 = \App\Models\Category::create([
-
-'name'=>'Workshop',
-
-'slug'=>'workshop'
-
-]);
-
-
-$cat3 = \App\Models\Category::create([
-
-'name'=>'Entertainment',
-
-'slug'=>'entertainment'
-
-]);
+        );
 
 
 
-\App\Models\Event::create([
-
-'category_id'=>$cat1->id,
-
-'title'=>'AI Summit 2026',
-
-'description'=>'Seminar AI terbaru',
-
-'date'=>'2026-06-20 09:00:00',
-
-'location'=>'Gedung Amikom',
-
-'price'=>50000,
-
-'stock'=>100,
-
-'poster_path'=>'assets/hackathon.png'
-
-]);
 
 
+        // =========================
+        // CATEGORY DATA
+        // =========================
 
-\App\Models\Event::create([
 
-'category_id'=>$cat2->id,
+        $cat1 = \App\Models\Category::firstOrCreate(
 
-'title'=>'Laravel Workshop',
+            [
+                'slug' => 'seminar'
+            ],
 
-'description'=>'Belajar Laravel',
+            [
+                'name' => 'Seminar'
+            ]
 
-'date'=>'2026-07-01 10:00:00',
-
-'location'=>'Lab SI',
-
-'price'=>75000,
-
-'stock'=>50,
-
-'poster_path'=>'assets/workshop.png'
-
-]);
+        );
 
 
 
-\App\Models\Event::create([
+        $cat2 = \App\Models\Category::firstOrCreate(
 
-'category_id'=>$cat3->id,
+            [
+                'slug' => 'workshop'
+            ],
 
-'title'=>'Music Festival',
+            [
+                'name' => 'Workshop'
+            ]
 
-'description'=>'Festival musik kampus',
-
-'date'=>'2026-08-10 19:00:00',
-
-'location'=>'Lapangan Kampus',
-
-'price'=>100000,
-
-'stock'=>200,
-
-'poster_path'=>'assets/concert.png'
-
-]);
+        );
 
 
-}
+
+        $cat3 = \App\Models\Category::firstOrCreate(
+
+            [
+                'slug' => 'entertainment'
+            ],
+
+            [
+                'name' => 'Entertainment'
+            ]
+
+        );
+
+
+
+
+
+
+
+        // =========================
+        // EVENT DATA
+        // =========================
+
+
+        \App\Models\Event::firstOrCreate(
+
+            [
+                'title' => 'AI Summit 2026'
+            ],
+
+            [
+
+                'category_id' => $cat1->id,
+
+                'description' => 'Seminar AI terbaru',
+
+                'date' => '2026-06-20 09:00:00',
+
+                'location' => 'Gedung Amikom',
+
+                'price' => 50000,
+
+                'stock' => 100,
+
+                'poster_path' => 'assets/hackathon.png'
+
+            ]
+
+        );
+
+
+
+
+
+        \App\Models\Event::firstOrCreate(
+
+            [
+                'title' => 'Laravel Workshop'
+            ],
+
+            [
+
+                'category_id' => $cat2->id,
+
+                'description' => 'Belajar Laravel',
+
+                'date' => '2026-07-01 10:00:00',
+
+                'location' => 'Lab SI',
+
+                'price' => 75000,
+
+                'stock' => 50,
+
+                'poster_path' => 'assets/workshop.png'
+
+            ]
+
+        );
+
+
+
+
+
+        \App\Models\Event::firstOrCreate(
+
+            [
+                'title' => 'Music Festival'
+            ],
+
+            [
+
+                'category_id' => $cat3->id,
+
+                'description' => 'Festival musik kampus',
+
+                'date' => '2026-08-10 19:00:00',
+
+                'location' => 'Lapangan Kampus',
+
+                'price' => 100000,
+
+                'stock' => 200,
+
+                'poster_path' => 'assets/concert.png'
+
+            ]
+
+        );
+
+
+
+
+
+
+
+        // =========================
+        // PARTNER SEEDER
+        // =========================
+
+
+        $this->call([
+
+            PartnerSeeder::class
+
+        ]);
+
+
+
+    }
+
 }

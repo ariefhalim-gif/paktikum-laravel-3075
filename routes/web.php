@@ -8,9 +8,9 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\CategoryController;
-
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\EventController as AdminEventController;
+use App\Http\Controllers\PartnerController;
 
 
 
@@ -89,3 +89,14 @@ Route::prefix('admin')
 
 Route::get('/admin/categories',
 [CategoryController::class,'index']);
+
+Route::get(
+'/admin/partners',
+[PartnerController::class,'index']
+);
+
+
+Route::post(
+'/admin/partners',
+[PartnerController::class,'store']
+);

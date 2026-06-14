@@ -2,24 +2,55 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+
 use App\Models\Partner;
+use Illuminate\Http\Request;
+
+
 
 class PartnerController extends Controller
 {
-    public function index()
-    {
-        $partners = Partner::all();
-        return view('admin.partners.index', compact('partners'));
-    }
 
-    public function store(Request $request)
-    {
-        Partner::create([
-            'name' => $request->name,
-            'logo_url' => $request->logo_url
-        ]);
 
-        return redirect('/admin/partners');
-    }
+public function index()
+{
+
+
+$partners = Partner::all();
+
+
+return view(
+'admin.partners.index',
+compact('partners')
+);
+
+
+}
+
+
+
+public function store(Request $request)
+{
+
+
+$data=$request->validate([
+
+'name'=>'required',
+
+'logo_url'=>'required'
+
+]);
+
+
+
+Partner::create($data);
+
+
+
+return redirect('/admin/partners');
+
+
+}
+
+
 }

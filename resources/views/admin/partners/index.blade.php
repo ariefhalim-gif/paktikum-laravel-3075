@@ -1,47 +1,103 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Partner</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
+@extends('layouts.admin')
 
-<div class="container mt-5">
 
-    <h2>Data Partner</h2>
+@section('content')
 
-    <form action="/admin/partners" method="POST">
-        @csrf
 
-        <input type="text" name="name" class="form-control mb-2" placeholder="Nama Partner">
+<h1 class="text-3xl font-bold mb-5">
 
-        <select name="logo_url" class="form-control mb-2">
-            <option value="https://placehold.co/200x200">Logo 200x200</option>
-            <option value="https://placehold.co/300x300">Logo 300x300</option>
-        </select>
+Partner
 
-        <button class="btn btn-primary mb-3">Simpan</button>
-    </form>
+</h1>
 
-    <table class="table table-bordered">
 
-        <tr>
-            <th>No</th>
-            <th>Nama</th>
-            <th>Logo</th>
-        </tr>
 
-        @foreach($partners as $partner)
-        <tr>
-            <td>{{ $loop->iteration }}</td>
-            <td>{{ $partner->name }}</td>
-            <td><img src="{{ $partner->logo_url }}" width="80"></td>
-        </tr>
-        @endforeach
+<form method="POST"
+action="/admin/partners"
+class="bg-white p-5 rounded shadow mb-5">
 
-    </table>
 
-</div>
+@csrf
 
-</body>
-</html>
+
+<input
+name="name"
+placeholder="Nama Partner"
+class="border p-2">
+
+
+
+<input
+name="logo_url"
+placeholder="Logo URL"
+class="border p-2">
+
+
+
+<button
+class="bg-green-600 text-white px-4 py-2 rounded">
+
+Simpan
+
+</button>
+
+
+</form>
+
+
+
+
+
+<table class="w-full bg-white shadow">
+
+
+<tr>
+
+<th class="p-3">
+Nama
+</th>
+
+
+<th>
+Logo
+</th>
+
+</tr>
+
+
+
+@foreach($partners as $partner)
+
+
+<tr>
+
+
+<td class="p-3">
+
+{{$partner->name}}
+
+</td>
+
+
+<td>
+
+
+<img src="{{$partner->logo_url}}"
+width="80">
+
+
+</td>
+
+
+</tr>
+
+
+
+@endforeach
+
+
+</table>
+
+
+
+@endsection
